@@ -14,11 +14,12 @@ public class SearchService {
 
     private ProductRepository productRepository;
     public SearchService(ProductRepository productRepository) {
+
         this.productRepository = productRepository;
     }
 
     public Page<Product> search(String query, int pageNo, int pageSize){
-        Sort sort = Sort.by("title");
+        Sort sort = Sort.by("title").descending();
 
         Pageable pageable = PageRequest.of(pageNo, pageSize, sort);
         return productRepository.findByTitleContaining(query,pageable);
